@@ -15,7 +15,7 @@ function getTerminalWidth()
  * Сохраняет в файл строку
  *
  * @param string $fileName
- * @param string $data
+ * @param string $targetString
  * @return void
  */
 function saveToFile($fileName, $targetString)
@@ -45,19 +45,29 @@ function generateData()
 
     $length = rand(5, 10);
     $arr = array();
-    echo $length . " this is length \n";
     for ($i = 0; $i < $length; $i++) {
         $arr = addUniqNumber($arr, $length);
     }
     return $arr;
 }
 
-
+/**
+ * Take string return array of number sequense
+ *
+ * @param string $data
+ * @return array
+ */
 function prepareNumbers($data)
 {
     return explode(" ", substr($data, strpos($data, "\n") + 1));
 }
 
+/**
+ * Вычисляем сумму положительных чисел
+ *
+ * @param array $nums
+ * @return integer
+ */
 function getSumOfPositiveNums($nums)
 {
     $sumPositives = 0;
@@ -68,7 +78,12 @@ function getSumOfPositiveNums($nums)
     }
     return $sumPositives;
 }
-
+/**
+ * Вычисляем призведение в промежутке между мин и макс
+ *
+ * @param array $nums
+ * @return int
+ */
 function getMinMaxNumsProduct($nums)
 {
     $min = min($nums);
@@ -79,9 +94,16 @@ function getMinMaxNumsProduct($nums)
     for ($i = min($minIndex, $maxIndex) + 1; $i < max($minIndex, $maxIndex); $i++) {
         $result *= $nums[$i];
     }
-
+    var_dump($nums);
     return $result;
 }
+
+/**
+ * Get content from the file
+ *
+ * @param string $fileName
+ * @return string
+ */
 function getFileData($fileName)
 {
     $file = fopen($fileName, 'r') or die("Can't open the file.");;
@@ -93,8 +115,3 @@ function getFileData($fileName)
     fclose($file);
     return $content;
 }
-// $nums = prepareNumbers($data);
-// print_r(getSumOfPositiveNums($nums));
-// echo "\n";
-// print_r(getMinMaxNumsProduct($nums));
-// echo "\n";

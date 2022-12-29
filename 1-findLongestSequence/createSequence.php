@@ -12,7 +12,7 @@ $data = createSequense((int) $length);
 
 $fileName = 'input.txt';
 
-saveToFile($fileName, $targetString);
+saveToFile($fileName, $data);
 
 echo "\nSequence:\n'" . $data . "'\nSuccessfully saved to '" . $fileName . "'\n";
 

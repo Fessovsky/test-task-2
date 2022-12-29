@@ -4,7 +4,7 @@
  * Сохраняет в файл строку
  *
  * @param string $fileName
- * @param string $data
+ * @param string $targetString
  * @return void
  */
 function saveToFile($fileName, $targetString)
@@ -41,24 +41,58 @@ function createSequense($length)
     return $string;
 }
 
-
-/**
- * Используюя патерн в регулярном выражении считаем упоминания стрелок
- *
- * @param string $fileName
- * @return integer Количество стрелок
- */
-function findArrows($fileName)
+function getFileData($fileName)
 {
-    $file = fopen($fileName, 'r');
+    $file = fopen($fileName, 'r') or die("Can't open the file.");;
     if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }
     $content = fread($file, filesize($fileName));
     fclose($file);
-    $count = preg_match_all('/<--<<|>>-->/', $content);
+    return $content;
+}
+
+/**
+ * Используюя патерн в регулярном выражении считаем упоминания стрелок
+ * но только те стрелки, которые не являются частью других стрелок
+ *
+ * @param string $content
+ * @return integer Количество стрелок
+ */
+function findArrows($content)
+{
+    $count = preg_match_all('/>>-->|<--<</', $content, $matches);
     return $count;
+}
+
+
+/**
+ * Решает проблему перекрывающихся стрел, когда однасостоит из другой.
+ *
+ * @param [type] $content
+ * @return void
+ */
+function improvedFindArrow($content)
+{
+
+    function recursion($string, $arrowCount = 0)
+    {
+        $positionLeft = strpos($string, '<--<<');
+        $positionRight = strpos($string, '>>-->');
+        if (strlen($string) < 4 || (!$positionLeft && !$positionRight)) {
+            return $arrowCount;
+        }
+        if ($positionLeft !== FALSE && ($positionLeft < $positionRight || $positionRight === FALSE)) {
+            $string = substr($string, $positionLeft + 4);
+            return recursion($string, $arrowCount + 1,);
+        }
+        if ($positionRight !== FALSE && ($positionRight < $positionLeft || $positionLeft === FALSE)) {
+            $string = substr($string, $positionRight + 4);
+            return recursion($string, $arrowCount + 1,);
+        }
+    }
+    return recursion($content);
 }
 
 /**

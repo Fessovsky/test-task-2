@@ -4,7 +4,7 @@
  * Сохраняет в файл строку
  *
  * @param string $fileName
- * @param string $data
+ * @param string $targetString
  * @return void
  */
 function saveToFile($fileName, $targetString)
@@ -28,22 +28,32 @@ function createSequense($length)
     }
     return $string;
 }
-
 /**
- * find longest sequence of 0s
+ * Get content from file by filename
  *
  * @param string $fileName
- * @return string
+ * @return string file content
  */
-function findLongestSequence($fileName)
+function getFileData($fileName)
 {
-    $file = fopen($fileName, 'r');
+    $file = fopen($fileName, 'r') or die("Can't open the file.");;
     if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }
     $content = fread($file, filesize($fileName));
     fclose($file);
+    return $content;
+}
+
+/**
+ * find longest sequence of 0s
+ *
+ * @param string $content
+ * @return string
+ */
+function findLongestSequence($content)
+{
 
     $currentSequence = 0;
     $longetsSequence = 0;

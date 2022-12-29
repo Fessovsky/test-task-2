@@ -10,3 +10,5 @@ $string .= "\n" . implode(" ", $dataArray);
 $fileName = 'input.txt';
 
 saveToFile($fileName, $string);
+echo "Done\n";
+echo str_repeat('-', $width);

@@ -4,7 +4,7 @@
  * Сохраняет в файл строку
  *
  * @param string $fileName
- * @param string $data
+ * @param string $targetString
  * @return void
  */
 function saveToFile($fileName, $targetString)
