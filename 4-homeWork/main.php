@@ -94,7 +94,6 @@ function getMinMaxNumsProduct($nums)
     for ($i = min($minIndex, $maxIndex) + 1; $i < max($minIndex, $maxIndex); $i++) {
         $result *= $nums[$i];
     }
-    var_dump($nums);
     return $result;
 }
 

@@ -3,13 +3,13 @@ require("main.php");
 
 $width = getTerminalWidth();
 
-$content = getFileData('input.txt');
+$content = getFileData('./input.txt');
 
 $arrowCounter = findArrows($content);
 $arrowCounter2 = improvedFindArrow($content);
 echo "This: " . $arrowCounter2;
 
-$fileName = 'output.txt';
+$fileName = './output.txt';
 saveToFile($fileName, $arrowCounter2);
 
 echo str_repeat('-', $width) . "\n";
