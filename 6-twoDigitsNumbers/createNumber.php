@@ -5,11 +5,8 @@ $width = getTerminalWidth();
 
 echo str_repeat('-', $width) . "\n";
 
-$dataArray = generateData();
-$string = count($dataArray);
-$string .= "\n" . implode(" ", $dataArray);
+$string = (string) rand(1, 30000);
 $fileName = 'input.txt';
-
 saveToFile($fileName, $string);
 
 echo "Done\n";
