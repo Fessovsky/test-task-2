@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Сохраняет в файл строку
  *
@@ -6,9 +7,10 @@
  * @param string $data
  * @return void
  */
-function saveToFile($fileName, $data){
+function saveToFile($fileName, $targetString)
+{
     $input = fopen($fileName, "w") or die("Can't open the file.");
-    fwrite($input, $data);
+    fwrite($input, $targetString);
     fclose($input);
 }
 
@@ -18,20 +20,21 @@ function saveToFile($fileName, $data){
  * @param int $length
  * @return string
  */
-function createSequense($length){
+function createSequense($length)
+{
     $string = '';
 
-    for($i = 0; $i < $length; $i++){
-        switch (random_int(0,2)) {
+    for ($i = 0; $i < $length; $i++) {
+        switch (random_int(0, 2)) {
             case '0':
-                $string.= "<";
+                $string .= "<";
                 break;
             case '1':
-                $string.=  ">";
+                $string .=  ">";
                 break;
-            
+
             default:
-                $string.=  "-";
+                $string .=  "-";
                 break;
         }
     }
@@ -45,15 +48,16 @@ function createSequense($length){
  * @param string $fileName
  * @return integer Количество стрелок
  */
-function findArrows($fileName){
-    $file = fopen($fileName,'r');
-    if(!filesize($fileName)){
+function findArrows($fileName)
+{
+    $file = fopen($fileName, 'r');
+    if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }
     $content = fread($file, filesize($fileName));
     fclose($file);
-    $count = preg_match_all('/<--<<|>>-->/',$content);
+    $count = preg_match_all('/<--<<|>>-->/', $content);
     return $count;
 }
 
@@ -62,9 +66,9 @@ function findArrows($fileName){
  *
  * @return int
  */
-function getTerminalWidth(){
+function getTerminalWidth()
+{
     $terminalSize = shell_exec('stty size');
     $dimensions = explode(' ', $terminalSize);
     return $dimensions[1];
 }
-?>

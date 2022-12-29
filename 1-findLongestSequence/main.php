@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Сохраняет в файл строку
  *
@@ -6,9 +7,10 @@
  * @param string $data
  * @return void
  */
-function saveToFile($fileName, $data){
+function saveToFile($fileName, $targetString)
+{
     $input = fopen($fileName, "w") or die("Can't open the file.");
-    fwrite($input, $data);
+    fwrite($input, $targetString);
     fclose($input);
 }
 
@@ -18,10 +20,11 @@ function saveToFile($fileName, $data){
  * @param int $length
  * @return string
  */
-function createSequense($length){
+function createSequense($length)
+{
     $string = '';
-    for($i = 0; $i < $length; $i++){
-        $string .= (string) random_int(0,1);
+    for ($i = 0; $i < $length; $i++) {
+        $string .= (string) random_int(0, 1);
     }
     return $string;
 }
@@ -32,9 +35,10 @@ function createSequense($length){
  * @param string $fileName
  * @return string
  */
-function findLongestSequence($fileName){
-    $file = fopen($fileName,'r');
-    if(!filesize($fileName)){
+function findLongestSequence($fileName)
+{
+    $file = fopen($fileName, 'r');
+    if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }
@@ -44,17 +48,17 @@ function findLongestSequence($fileName){
     $currentSequence = 0;
     $longetsSequence = 0;
 
-    for($i = 0; $i < strlen($content); $i++){
-            if($content[$i] === "0"){
-                $currentSequence++;
-            } else { 
-                if($currentSequence>$longetsSequence){
-                    $longetsSequence = $currentSequence;
-                }
-                    $currentSequence = 0;
+    for ($i = 0; $i < strlen($content); $i++) {
+        if ($content[$i] === "0") {
+            $currentSequence++;
+        } else {
+            if ($currentSequence > $longetsSequence) {
+                $longetsSequence = $currentSequence;
             }
+            $currentSequence = 0;
         }
-    if($currentSequence>$longetsSequence){
+    }
+    if ($currentSequence > $longetsSequence) {
         $longetsSequence = $currentSequence;
     }
     return $longetsSequence;
@@ -65,9 +69,9 @@ function findLongestSequence($fileName){
  *
  * @return int
  */
-function getTerminalWidth(){
+function getTerminalWidth()
+{
     $terminalSize = shell_exec('stty size');
     $dimensions = explode(' ', $terminalSize);
     return $dimensions[1];
 }
-?>

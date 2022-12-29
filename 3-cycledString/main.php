@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * Сохраняет в файл строку
  *
@@ -6,9 +7,10 @@
  * @param string $data
  * @return void
  */
-function saveToFile($fileName, $data){
+function saveToFile($fileName, $targetString)
+{
     $input = fopen($fileName, "w") or die("Can't open the file.");
-    fwrite($input, $data);
+    fwrite($input, $targetString);
     fclose($input);
 }
 
@@ -17,7 +19,8 @@ function saveToFile($fileName, $data){
  *
  * @return int
  */
-function getTerminalWidth(){
+function getTerminalWidth()
+{
     $terminalSize = shell_exec('stty size');
     $dimensions = explode(' ', $terminalSize);
     return $dimensions[1];
@@ -28,14 +31,15 @@ function getTerminalWidth(){
  *
  * @return string
  */
-function createRandomStringSequence(){
+function createRandomStringSequence()
+{
     $chars = 'abcdefghijklmnopqrstuvwxyz';
-    $length = random_int(1,10);
+    $length = random_int(1, 10);
     $randomString = '';
-    for ($i = 0; $i < $length; $i++){
-        $randomString.= $chars[random_int(0,strlen($chars)-1)];
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $chars[random_int(0, strlen($chars) - 1)];
     }
-    $randomString = str_repeat($randomString, 50000/$length+1);
+    $randomString = str_repeat($randomString, 50000 / $length + 1);
     $randomString = substr($randomString, 0, 50000);
 
     return $randomString;
@@ -47,9 +51,10 @@ function createRandomStringSequence(){
  * @param string $fileName
  * @return string
  */
-function getMinimalSubstringFirstIdea($fileName){
-    $file = fopen($fileName,'r');
-    if(!filesize($fileName)){
+function getMinimalSubstringFirstIdea($fileName)
+{
+    $file = fopen($fileName, 'r');
+    if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }
@@ -57,20 +62,24 @@ function getMinimalSubstringFirstIdea($fileName){
     fclose($file);
 
     $fullStringLength = strlen($fullString);
-    
-    for($i = 1; $i <=$fullStringLength; $i++){
+
+    for ($i = 1; $i <= $fullStringLength; $i++) {
         $baseString = substr($fullString, 0, $i);
         $rollingWaveString = substr($fullString, $i, $i);
-        if($baseString===$rollingWaveString){
-            if(
+        if ($baseString === $rollingWaveString) {
+            if (
                 substr(
                     str_repeat(
-                        $rollingWaveString,$fullStringLength
-                    ), 0, $fullStringLength) === $fullString
-            ){
+                        $rollingWaveString,
+                        $fullStringLength
+                    ),
+                    0,
+                    $fullStringLength
+                ) === $fullString
+            ) {
                 return $rollingWaveString;
             }
-        } 
+        }
     }
 }
 
@@ -82,9 +91,10 @@ function getMinimalSubstringFirstIdea($fileName){
  * @param string $fileName
  * @return string
  */
-function getMinimalSubstringSecondIdea($fileName){
-    $file = fopen($fileName,'r');
-    if(!filesize($fileName)){
+function getMinimalSubstringSecondIdea($fileName)
+{
+    $file = fopen($fileName, 'r');
+    if (!filesize($fileName)) {
         echo "\nfile is empty\n\n";
         return;
     }

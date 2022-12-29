@@ -2,7 +2,7 @@
 require("main.php");
 
 $width = getTerminalWidth();
-echo str_repeat('-', $width)."\n";
+echo str_repeat('-', $width) . "\n";
 
 $data = createRandomStringSequence();
 
